@@ -5,17 +5,32 @@
     <title>Webpack Package</title>
   </head>
   <body>
-    <div id="point"></div>
-    <div class="jumbotron">
-      <h1 class="display-4">RSS-лента</h1>
-      <p class="lead">RSS-лента новостей с автоматическим обновлением.</p>
-      <hr class="my-4">
-      <div class="row">
-        <div class="col-12 col-md-9 mt-3">
-          <input class="form-control form-control-lg" type="text" placeholder="Введите URL">
-        </div>
-        <div class="col-5 col-md-3 mt-3">
-          <button type="button" class="btn btn-primary btn-lg w-100">Добавить</button>
+    <div id="point">
+      <div class="jumbotron">
+        <h1 class="display-4">RSS-лента</h1>
+        <p class="lead">RSS-лента новостей с автоматическим обновлением.</p>
+        <hr class="my-4">
+        <form class="form row" id="rss-form">
+          <div class="col-12 col-md-9 mt-3 ">
+            <input name="url" id="rss-input" class="form-control form-control-lg" type="text" placeholder="http://lorem-rss.herokuapp.com/feed">
+            <small class="" id="rss-message">Введите Url</small>
+          </div>
+          <div class="col-5 col-md-3 mt-3">
+            <input type="submit" id="rss-button" type="button" class="btn btn-primary btn-lg w-100" disabled value="Добавить"></input>
+          </div>
+        </form>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-6 col-lg-6 mb-5">
+            <h2>Каналы:</h2>
+            <ul id="rss-feeds" class="list-group list-group-flush">
+          </ul>
+          </div>
+          <div class="col-12 col-lg-6 mb-5">
+            <h2>Посты:</h2>
+            <ul id="rss-posts" class="list-group list-group-flush"></ul>
+          </div>
         </div>
       </div>
     </div>
