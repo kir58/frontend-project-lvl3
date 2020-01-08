@@ -60,7 +60,6 @@ export default () => {
     const url = formData.get('url');
     state.urls.push(url);
     state.request = 'requesting';
-    console.log(state);
   };
   form.addEventListener('submit', handLeFormSubmit);
 };

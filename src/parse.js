@@ -4,6 +4,7 @@ const makePost = (element) => {
   const post = {
     title: element.querySelector('title').textContent,
     link: element.querySelector('link').textContent,
+    description: element.querySelector('description').textContent,
   };
   state.posts.push(post);
 };

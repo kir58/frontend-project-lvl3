@@ -4,4 +4,5 @@ export default {
   urls: [],
   posts: [],
   feeds: [],
+  modalInfo: '',
 };
