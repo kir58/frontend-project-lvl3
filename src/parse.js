@@ -1,32 +1,25 @@
-import state from './state';
-
 const makePost = (element) => {
   const post = {
     title: element.querySelector('title').textContent,
     link: element.querySelector('link').textContent,
     description: element.querySelector('description').textContent,
   };
-  state.posts.push(post);
+  return post;
 };
 
 const makeFeed = (data) => {
-  const title = data.querySelector('title').textContent;
-  const hasFeed = state.feeds.some((feed) => feed.title === title);
-  if (hasFeed) {
-    return;
-  }
-
-  const feed = {
-    title,
-    description: data.querySelector('description').textContent,
-  };
   const elements = data.querySelectorAll('item');
-  elements.forEach(makePost);
-  state.feeds.push(feed);
+  const parsedElements = [...elements].map(makePost);
+  const feed = {
+    title: data.querySelector('title').textContent,
+    description: data.querySelector('description').textContent,
+    elements: parsedElements,
+  };
+  return feed;
 };
 
-export default (xmls) => {
+export default (data) => {
   const parser = new DOMParser();
-  const doc = parser.parseFromString(xmls.data, 'text/xml');
-  makeFeed(doc);
+  const doc = parser.parseFromString(data, 'text/xml');
+  return makeFeed(doc);
 };
