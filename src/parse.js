@@ -7,19 +7,18 @@ const makePost = (element) => {
   return post;
 };
 
-const makeFeed = (data) => {
-  const elements = data.querySelectorAll('item');
-  const parsedElements = [...elements].map(makePost);
-  const feed = {
-    title: data.querySelector('title').textContent,
-    description: data.querySelector('description').textContent,
-    elements: parsedElements,
-  };
-  return feed;
-};
-
 export default (data) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(data, 'text/xml');
-  return makeFeed(doc);
+
+  const elements = doc.querySelectorAll('item');
+  const parsedElements = [...elements].map(makePost);
+
+  const feed = {
+    title: doc.querySelector('title').textContent,
+    description: doc.querySelector('description').textContent,
+    elements: parsedElements,
+  };
+
+  return feed;
 };

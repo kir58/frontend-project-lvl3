@@ -9,7 +9,7 @@ export const observerInput = (state) => () => {
   const input = document.getElementById('rss-input');
   const button = document.getElementById('rss-button');
   const message = document.getElementById('rss-message');
-  switch (state.currentUrl) {
+  switch (state.urlStatus) {
     case inputOptions.empty:
       input.classList.remove('is-invalid');
       input.classList.remove('is-valid');
@@ -45,8 +45,7 @@ export const observerFeeds = (currentState) => () => {
   const state = currentState;
   const message = document.getElementById('rss-message');
   const button = document.getElementById('rss-button');
-
-  switch (state.request) {
+  switch (state.requestStatus) {
     case requestOptions.waiting:
       message.textContent = 'Введите Url';
       message.classList.remove('text-danger', 'text-success');
@@ -60,13 +59,13 @@ export const observerFeeds = (currentState) => () => {
       message.textContent = 'Канал добавлен';
       message.classList.remove('text-warning');
       message.classList.add('text-success');
-      state.currentUrl = inputOptions.empty;
+      state.urlStatus = inputOptions.empty;
       break;
     case requestOptions.failed:
       message.textContent = 'Произошла ошибка, возможно вы ввели неверный Url';
       message.classList.remove('text-warning');
       message.classList.add('text-danger');
-      state.currentUrl = inputOptions.empty;
+      state.urlStatus = inputOptions.empty;
       break;
     default:
       break;

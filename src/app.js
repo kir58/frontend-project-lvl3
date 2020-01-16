@@ -2,45 +2,45 @@ import $ from 'jquery';
 import { watch } from 'melanke-watchjs';
 import isUrl from 'validator/es/lib/isURL';
 import { renderFeeds, renderPosts } from './render';
-import { getFeed, updateFeeds } from './requests';
+import { addFeed, updateFeeds } from './requests';
 import { requestOptions, inputOptions } from './consts';
 
 import { observerModal, observerInput, observerFeeds } from './observers';
 
 
-const state = {
-  request: requestOptions.waiting,
-  currentUrl: inputOptions.empty,
-  urls: [],
-  posts: [],
-  feeds: [],
-  modalInfo: '',
-};
-
-const hanleChangeInput = ({ target: { value } }) => {
-  state.request = requestOptions.waiting;
-  if (value === '') {
-    state.currentUrl = inputOptions.empty;
-  } else if (state.urls.includes(value)) {
-    state.currentUrl = inputOptions.hasUrl;
-  } else if (isUrl(value)) {
-    state.currentUrl = inputOptions.valid;
-  } else {
-    state.currentUrl = inputOptions.invalid;
-  }
-};
-
-const handLeFormSubmit = (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const url = formData.get('url');
-  getFeed(state, url);
-  state.request = requestOptions.requesting;
-};
-
 export default () => {
-  watch(state, 'currentUrl', observerInput(state));
-  watch(state, 'request', observerFeeds(state));
+  const state = {
+    requestStatus: requestOptions.waiting,
+    urlStatus: inputOptions.empty,
+    urls: [],
+    posts: [],
+    feeds: [],
+    modalInfo: '',
+  };
+
+  const hanleChangeInput = ({ target: { value } }) => {
+    state.requestStatus = requestOptions.waiting;
+    if (value === '') {
+      state.urlStatus = inputOptions.empty;
+    } else if (state.urls.includes(value)) {
+      state.urlStatus = inputOptions.hasUrl;
+    } else if (isUrl(value)) {
+      state.urlStatus = inputOptions.valid;
+    } else {
+      state.urlStatus = inputOptions.invalid;
+    }
+  };
+
+  const handLeFormSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const url = formData.get('url');
+    addFeed(state, url);
+    state.requestStatus = requestOptions.requesting;
+  };
+
+  watch(state, 'urlStatus', observerInput(state));
+  watch(state, 'requestStatus', observerFeeds(state));
   watch(state, 'modalInfo', observerModal(state));
   watch(state, 'feeds', () => renderFeeds(state));
   watch(state, 'posts', () => renderPosts(state));
