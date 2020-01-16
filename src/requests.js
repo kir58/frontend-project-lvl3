@@ -21,14 +21,14 @@ export const addFeed = (currentState, url) => {
     });
 };
 
-const updateFeed = ({ data }, { posts }) => {
+const getNewPosts = ({ data }, { posts }) => {
   const { elements } = parse(data);
-  const updatedElements = elements.filter((el) => {
+  const newPosts = elements.filter((el) => {
     const hasPost = posts.some(({ title }) => title === el.title);
     return !hasPost;
   });
 
-  return updatedElements;
+  return newPosts;
 };
 
 export const updateFeeds = (state) => {
@@ -37,8 +37,8 @@ export const updateFeeds = (state) => {
   Promise.all(promises)
     .then((res) => {
       res.forEach((el) => {
-        const updatedFeed = updateFeed(el, state);
-        state.posts.unshift(...updatedFeed);
+        const newPosts = getNewPosts(el, state);
+        state.posts.unshift(...newPosts);
       });
     })
     .catch((e) => {
