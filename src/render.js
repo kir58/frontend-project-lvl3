@@ -1,3 +1,5 @@
+import i18next from 'i18next';
+
 export const renderFeeds = ({ feeds }) => {
   const listContainer = document.getElementById('rss-feeds');
   const listHtml = feeds.map(({ title, description }) => (
@@ -16,7 +18,7 @@ export const renderPosts = ({ posts }) => {
     `<li class="list-group-item d-flex justify-content-between align-items-center bg-light text-dark">
       <a target="_blank" href=${link}>${title}</a>
       <button type="button" class="btn btn-info ml-4" data-toggle="modal" data-target="#info-modal" data-whatever='${description}'>
-        Информация
+        ${i18next.t('buttons.info')}
       </button>
     </li>`
   )).join('');

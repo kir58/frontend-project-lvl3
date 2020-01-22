@@ -3,7 +3,6 @@ import { watch } from 'melanke-watchjs';
 import isUrl from 'validator/es/lib/isURL';
 
 import localize from './loczalize';
-import setLocalTextToPage from './loczalize/setLocalTextToPage';
 import { renderFeeds, renderPosts } from './render';
 import { addFeed, updateFeeds } from './requests';
 import { requestOptions, inputOptions } from './consts';
@@ -22,7 +21,7 @@ export default () => {
     modalInfo: '',
   };
 
-  localize(setLocalTextToPage);
+  localize();
 
   const hanleChangeInput = ({ target: { value } }) => {
     state.requestStatus = requestOptions.waiting;

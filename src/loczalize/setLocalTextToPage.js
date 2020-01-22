@@ -6,7 +6,7 @@ export default (t) => {
   const message = document.getElementById('rss-message');
   const buttonAdd = document.getElementById('rss-button-add');
   const buttonClose = document.getElementById('rss-button-close');
-  console.log(t);
+
   title.textContent = t('mainInfo.title');
   description.textContent = t('mainInfo.description');
   channels.textContent = t('mainInfo.channels');

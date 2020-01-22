@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import localize from './loczalize';
+import i18next from 'i18next';
 
 import { requestOptions, inputOptions } from './consts';
 
@@ -22,20 +22,20 @@ export const observerInput = (state) => () => {
       input.classList.remove('is-invalid');
       input.classList.add('is-valid');
       button.removeAttribute('disabled');
-      localize((t) => { message.textContent = t('message.waiting'); });
+      message.textContent = i18next.t('message.waiting');
       message.classList.remove('text-danger');
       break;
     case inputOptions.invalid:
       input.classList.remove('is-valid');
       input.classList.add('is-invalid');
       button.setAttribute('disabled', true);
-      localize((t) => { message.textContent = t('message.waiting'); });
+      message.textContent = i18next.t('message.waiting');
       message.classList.remove('text-danger');
       break;
     case inputOptions.hasUrl:
       input.classList.add('is-invalid');
       button.setAttribute('disabled', true);
-      localize((t) => { message.textContent = t('message.hasChannel'); });
+      message.textContent = i18next.t('message.hasChannel');
       message.classList.add('text-danger');
       break;
     default:
@@ -49,22 +49,22 @@ export const observerFeeds = (currentState) => () => {
   const button = document.getElementById('rss-button-add');
   switch (state.requestStatus) {
     case requestOptions.waiting:
-      localize((t) => { message.textContent = t('message.waiting'); });
+      message.textContent = i18next.t('message.waiting');
       message.classList.remove('text-danger', 'text-success');
       break;
     case requestOptions.requesting:
-      localize((t) => { message.textContent = t('message.requesting'); });
+      message.textContent = i18next.t('message.requesting');
       message.classList.add('text-warning');
       button.setAttribute('disabled', true);
       break;
     case requestOptions.finished:
-      localize((t) => { message.textContent = t('message.hasChannel'); });
+      message.textContent = i18next.t('message.hasChannel');
       message.classList.remove('text-warning');
       message.classList.add('text-success');
       state.urlStatus = inputOptions.empty;
       break;
     case requestOptions.failed:
-      localize((t) => { message.textContent = t('message.failed'); });
+      message.textContent = i18next.t('message.failed');
       message.classList.remove('text-warning');
       message.classList.add('text-danger');
       state.urlStatus = inputOptions.empty;
