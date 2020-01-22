@@ -1,9 +1,13 @@
 import $ from 'jquery';
 import { watch } from 'melanke-watchjs';
 import isUrl from 'validator/es/lib/isURL';
+
+import localize from './loczalize';
+import setLocalTextToPage from './loczalize/setLocalTextToPage';
 import { renderFeeds, renderPosts } from './render';
 import { addFeed, updateFeeds } from './requests';
 import { requestOptions, inputOptions } from './consts';
+
 
 import { observerModal, observerInput, observerFeeds } from './observers';
 
@@ -17,6 +21,8 @@ export default () => {
     feeds: [],
     modalInfo: '',
   };
+
+  localize(setLocalTextToPage);
 
   const hanleChangeInput = ({ target: { value } }) => {
     state.requestStatus = requestOptions.waiting;
